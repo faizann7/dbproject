@@ -1,0 +1,41 @@
+{% extends "auctions/layout.html"  %}
+
+{% block body %}
+<h1>Create a new Listing</h1>
+<form action="{% url 'listing' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <input class="form-control" autofocus type="text" name="title" placeholder="title" maxlength="100">
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="text" name="description" placeholder="description" maxlength="200">
+    </div>
+    <div class="form-group">
+      Starting Bid<div class="input-group mb-3"> <span class="input-group-text">$</span>
+        <input class="form-control" type="number" name="bid">
+        </div>
+    </div>
+    <h6>Select Category of Listing:</h6>
+      <label class="radio-inline"><input  type="radio" name="optradio" value="Toys"> Toys</label>
+
+      <label class="radio-inline"> <input  type="radio" name="optradio" value="Fashion"> Fashion </label>
+
+      <label class="radio-inline"><input  type="radio" name="optradio" value="Electronics"> Electronics </label>
+
+      <label class="radio-inline"> <input type="radio" name="optradio" value="Home"> Home </label>
+
+      <label class="radio-inline"><input  type="radio" name="optradio" value="Sports"> Sports </label>
+
+      <label class="radio-inline"> <input  type="radio" name="optradio" checked value="Others"> Others </label>
+
+      <div>
+
+    <h6>Add Image of Product:</h6>  <input class="" type="file" name="image" value="image">
+    <br>
+    <br>
+    <button type="submit" class="btn btn-success">Submit</button>
+
+    </div>
+</form>
+
+{% endblock %}

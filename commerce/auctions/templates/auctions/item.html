@@ -1,0 +1,81 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<h2> Listing:<a style="color:#634363;"> {{item.title}}</a> </h2>
+<br>
+{% if user.is_authenticated %}
+{% if not button or not item.close_bid %}
+{% if item.watchlist %}
+<a href="{% url 'change_watchlist' item.id %}"><button type="button" class="btn btn-dark" ">Remove from Watchlist</button></a>
+{% else %}
+<a href="{% url 'change_watchlist' item.id %}"><button type="button" class="btn btn-dark" ">Add to Watchlist</button></a>
+{% endif %}
+{% endif %}
+{% endif %}
+<br>
+<br>
+<img class="rounded float-left" id= image src="{{MEDIA_URL}}{{item.image}}" class="rounded float-left" >
+<br>
+<section id =description>
+
+<h4>Description: {{item.description}}</h4>
+</section>
+
+{% if user.is_authenticated %}
+
+{% if highest_bid %}
+<h3>Price: ${{highest_bid}}</h3>
+{% else %}
+<h3>Price: ${{item.starting_bid}}</h3>
+{% endif %}
+<br>
+{% if item.close_bid %}
+<h3>Bid Closed</h3>
+{% if winner  %}
+<div class="alert alert-danger" role="alert">
+  <h3>Congratulations! You won the Bid</h3>
+</div>
+{% endif %}
+{% else %}
+{% if button %}
+  <a href="{% url 'close_bid' item.id %}"<button type="submit" class="btn btn-success">Close Bid </button></a>
+{% else %}
+<form name="bid" class="bid" action="{% url 'placebid' item.id %}" method="post">
+  {% csrf_token %}
+  <input type="number" name="bid" placeholder="Place New Bid">
+  <button type="submit" class="btn btn-success"> Bid </button>
+</form>
+{% endif %}
+{% endif %}
+{% endif %}
+
+
+
+<h4>Details:</h4>
+<br>
+<ul>
+  <li><h6>Listed by {{item.created_by}}</h6></li>
+  <li><h6>Date of Listing: {{item.date}}</h6></li>
+  <li><h6>Category: {{item.Categories}}</h6></li>
+</ul>
+
+  {% if comments %}
+  <h3>Comments:</h3>
+
+  {% for comment in comments %}
+  "{{comment.comment}}"  by {{comment.user}}
+   <br>
+  {% endfor %}
+
+{% else %}
+No Comments
+{% endif %}
+{% if user.is_authenticated %}
+  <form class="comment" action="{% url 'comment' item.id %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="comment" placeholder="write a comment..">
+    <input type="submit"  value="Submit">
+  </form>
+{% endif %}
+{% endblock %}
