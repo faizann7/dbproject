@@ -1,36 +1,68 @@
 {% extends "auctions/layout.html" %}
-
+{% load static %}
 {% block body %}
 
-    <h2>{{message}}:</h2>
-    {% for listing in all_listings %}
-    <div class="shadow-lg p-3 mb-5 bg-white rounded">
-    <div class="container px-lg-5">
-    <div class="row mx-lg-n5">
-    <div class="col py-3 px-lg-5 border bg-light">
-    Created {{listing.date}}
-    <h5 >Item no: {{listing.id}}</h5>
-    <img  src="{{MEDIA_URL}}{{listing.image}}" style="height:300px;width:300px; padding:auto;" >
-    </div>
-    <div class="col py-3 px-lg-5 border bg-light">
-    <a href="{% url 'item' listing.id %}"><h2 style="text-align:center; text-decoration: underline;">{{listing.title}}</h2><a/>
-    <br>
-    <h4 style="text-align:center">Starting Bid:<strong> ${{listing.starting_bid}}</strong></h4>
 
-   <h4 style="text-align:center">Category:<strong> {{listing.Categories}}</strong></h4>
 
-    <h4  style="text-align:center">Description:<strong>{{listing.description}}</strong></h4>
+  <main class="l-main">
+    <section class="home" id="home">
+        <div class="home__container bd-grid">
+            <div class="home__sneaker">
+                <div class="home__shape"></div>
+                <img  src="{ % static './imghome.png' % }" style="height:300px;width:300px; padding:auto;" >
+              </div>
 
-    {% if listing.close_bid %}
-    <h4  style="text-align:center">Status: <p style="color:red">Closed </p></h4>
-    {% else %}
-    <h4  style="text-align:center">Status: <p style="color:green">Active </p></h4>
-    {% endif %}
-    </div>
-    </div>
-  </div>
-  </div>
+            <div class="home__data">
+                <span class="home__new">New In</span>
+                <h1 class="home__title"> YEEZY BOOST <br> SPLY-350</h1>
+                <p class="home__description"> Explore the new collection of sneakers</p>
+                <a href= "#" class="button">Explore</a>
+            </div>
+        </div>
+    </section>
+  </main>
+
+  <section class="featured section" id="featured">
+    <h2 class="section-title">FEATURED</h2>
     
+        <div class="featured__container bd-grid">
+            {% for category in categories %}
+                <article class="sneaker">
+                    <ul>
+                        <li><a href="{% url 'category_items' category %}">{{category}}</a></li>
+                    </ul>
+                </article>
+            {% endfor %}
+        </div>
+      
+  </section>
+
+  <main class="l-main">
+    <section class="featured section">
+      <h2 class="section-title">{message}</h2>
+      {% for listing in all_listings %}
+      <div class="featured__container bd-grid">
+        
+        <article class="sneaker">
+
+          {% if listing.close_bid %}
+            <div class="sneaker__sale">Closed</div>
+          {% else %}
+            <div class="sneaker__sale">Active</div>
+          {% endif %}
+
+          <img  src="{{MEDIA_URL}}{{listing.image}}" class="sneaker__img" >
+          <a href="{% url 'item' listing.id %}" class="sneaker__name">{{listing.title}}<a/>
+          <span class="sneaker__price"> ${{listing.starting_bid}}</span>
+
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+
+  
 
     {% endfor %}
 
