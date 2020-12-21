@@ -1,3 +1,4 @@
+  
 {% load static %}
 
 <!DOCTYPE html>
@@ -6,7 +7,7 @@
         <title>{% block title %}Auctions{% endblock %}</title>
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
         <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}" >
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
     </head>
     <body>
         
@@ -59,14 +60,12 @@
         <!-- <h1>Auctions</h1>
         <div>
       </div>
-
       
             {% if user.is_authenticated %}
                 Signed in as <strong>{{ user.username }}</strong>.
             {% else %}
                 Not signed in.
             {% endif %}
-
         </div>
         <ul class="nav">
             <li class="nav-item">
@@ -93,7 +92,6 @@
                     <a class="nav-link" href="{% url 'register' %}">Register</a>
                 </li>
             {% endif %}
-
         </ul> -->
         <hr>
         {% block body %}
