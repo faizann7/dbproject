@@ -9,13 +9,13 @@
         <div class="home__container bd-grid">
             <div class="home__sneaker">
                 <div class="home__shape"></div>
-                <img  src="{ % static './imghome.png' % }" style="height:300px;width:300px; padding:auto;" >
+                <img  src="{ % static './imghome.png' % }">
               </div>
 
             <div class="home__data">
-                <span class="home__new">New In</span>
-                <h1 class="home__title"> YEEZY BOOST <br> SPLY-350</h1>
-                <p class="home__description"> Explore the new collection of sneakers</p>
+                <span class="home__new">New Arrivals!!</span>
+                <h1 class="home__title"> SELL OR BUY <br> IT SATISFIES</h1>
+                <p class="home__description"> Explore the new collection of different categories!</p>
                 <a href= "#" class="button">Explore</a>
             </div>
         </div>
@@ -37,33 +37,27 @@
       
   </section>
 
-  <main class="l-main">
+  <main "l-main">
     <section class="featured section">
-      <h2 class="section-title">{message}</h2>
       {% for listing in all_listings %}
-      <div class="featured__container bd-grid">
-        
-        <article class="sneaker">
-
-          {% if listing.close_bid %}
-            <div class="sneaker__sale">Closed</div>
-          {% else %}
-            <div class="sneaker__sale">Active</div>
-          {% endif %}
-
-          <img  src="{{MEDIA_URL}}{{listing.image}}" class="sneaker__img" >
-          <a href="{% url 'item' listing.id %}" class="sneaker__name">{{listing.title}}<a/>
+      <div style="display: flexbox;">
+        <img style="width: 250px;" src="{{MEDIA_URL}}{{listing.image}}"  >
+        <a href="{% url 'item' listing.id %}">{{listing.title}}<a/>
           <span class="sneaker__price"> ${{listing.starting_bid}}</span>
-
-        </article>
-
+          {% if listing.close_bid %}
+            <div >Closed</div>
+          {% else %}
+            <div>Active</div>
+          {% endif %}
       </div>
     </section>
   </main>
 
-
   
 
-    {% endfor %}
+  {% endfor %}
+  
+
+    
 
 {% endblock %}

@@ -1,41 +1,78 @@
 {% extends "auctions/layout.html"  %}
-
+{% load static%}
 {% block body %}
-<h1>Create a new Listing</h1>
-<form action="{% url 'listing' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="form-group">
-        <input class="form-control" autofocus type="text" name="title" placeholder="title" maxlength="100">
-    </div>
-    <div class="form-group">
-        <input class="form-control" type="text" name="description" placeholder="description" maxlength="200">
-    </div>
-    <div class="form-group">
-      Starting Bid<div class="input-group mb-3"> <span class="input-group-text">$</span>
-        <input class="form-control" type="number" name="bid">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'product.css' %}" >
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700&display=swap" rel="stylesheet">
+    <title>Product Card</title>
+</head>
+<body>
+  <div style="padding-top: 100px;">
+
+  </div>
+    <div class="container">
+        <div class="card">
+            
+            <div class="info">
+              <form action="{% url 'listing' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="shoeName">
+                    <div>
+                        <h1 class="big">Create a New Listing</h1>
+                    </div>
+                    <input class="small" type="text" name="title" placeholder="Product Title">
+                </div>
+                <div class="description">
+                    <h3 class="title">Product Info</h3>
+                    <input class="small" type="text" name="description" placeholder="Product Title">
+                </div>
+                <div>
+                    <h3 class="title"> Starting Bid </h3>
+                    $<input type="number" name="bid">
+                </div>
+                <div class="color-container">
+                    <h3 class="title">Select A List Of Category</h3>
+                    <div class="colors">
+                        <span > <label class="radio-inline"><input  type="radio" name="optradio" value="Toys"> Toys</label></span>
+                        
+
+                        <span ><label class="radio-inline"> <input  type="radio" name="optradio" value="Fashion"> Fashion </label></span>
+
+                        <span > <label class="radio-inline"><input  type="radio" name="optradio" value="Electronics"> Electronics </label></span>
+
+                        <span ><label class="radio-inline"> <input type="radio" name="optradio" value="Home"> Home </label></span>
+
+                        <span > <label class="radio-inline"><input  type="radio" name="optradio" value="Sports"> Sports </label></span>
+
+                        <span ><label class="radio-inline"> <input  type="radio" name="optradio" checked value="Others"> Others </label></span>
+
+                    </div>
+                </div>
+                <div class="size-container">
+                    <h3 class="title">Image Of the Product</h3>
+                    <input class="buyy" type="file" name="image" value="image">
+                    <br>
+                    <br>
+                    <button type="submit" class="buy">Submit</button>
+                </div>
+              </form>
+
+            </div>
         </div>
     </div>
-    <h6>Select Category of Listing:</h6>
-      <label class="radio-inline"><input  type="radio" name="optradio" value="Toys"> Toys</label>
+    <script src="app.js"></script>
+</body>
+</html>
 
-      <label class="radio-inline"> <input  type="radio" name="optradio" value="Fashion"> Fashion </label>
 
-      <label class="radio-inline"><input  type="radio" name="optradio" value="Electronics"> Electronics </label>
 
-      <label class="radio-inline"> <input type="radio" name="optradio" value="Home"> Home </label>
 
-      <label class="radio-inline"><input  type="radio" name="optradio" value="Sports"> Sports </label>
 
-      <label class="radio-inline"> <input  type="radio" name="optradio" checked value="Others"> Others </label>
-
-      <div>
-
-    <h6>Add Image of Product:</h6>  <input class="" type="file" name="image" value="image">
-    <br>
-    <br>
-    <button type="submit" class="btn btn-success">Submit</button>
-
-    </div>
-</form>
 
 {% endblock %}

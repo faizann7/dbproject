@@ -1,81 +1,134 @@
 {% extends "auctions/layout.html" %}
-
+{% load static %}
 {% block body %}
 
-<h2> Listing:<a style="color:#634363;"> {{item.title}}</a> </h2>
-<br>
-{% if user.is_authenticated %}
-{% if not button or not item.close_bid %}
-{% if item.watchlist %}
-<a href="{% url 'change_watchlist' item.id %}"><button type="button" class="btn btn-dark" ">Remove from Watchlist</button></a>
-{% else %}
-<a href="{% url 'change_watchlist' item.id %}"><button type="button" class="btn btn-dark" ">Add to Watchlist</button></a>
-{% endif %}
-{% endif %}
-{% endif %}
-<br>
-<br>
-<img class="rounded float-left" id= image src="{{MEDIA_URL}}{{item.image}}" class="rounded float-left" >
-<br>
-<section id =description>
 
-<h4>Description: {{item.description}}</h4>
-</section>
 
-{% if user.is_authenticated %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700&display=swap" rel="stylesheet">
 
-{% if highest_bid %}
-<h3>Price: ${{highest_bid}}</h3>
-{% else %}
-<h3>Price: ${{item.starting_bid}}</h3>
-{% endif %}
-<br>
-{% if item.close_bid %}
-<h3>Bid Closed</h3>
-{% if winner  %}
-<div class="alert alert-danger" role="alert">
-  <h3>Congratulations! You won the Bid</h3>
+  <link rel="stylesheet" type="text/css" href="{% static 'product.css' %}" >
+
+  <title>Document</title>
+</head>0
+<body>
+  <div style="padding-top: 100px;"></div>
+  <div class="container">
+    <div class="card">
+        <div class="shoeBackground">
+
+          {% if user.is_authenticated %}
+            {% if not button or not item.close_bid %}
+              {% if item.watchlist %}
+                <a href="{% url 'change_watchlist' item.id %}"><button type="button" class="share" ">Remove</button></a>
+              {% else %}
+                <a href="{% url 'change_watchlist' item.id %}"><button type="button" class="share" ">Add to watchlist</button></a>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+
+          <img class="rounded float-left" id= image src="{{MEDIA_URL}}{{item.image}}" class="rounded float-left" >
+
+        </div>
+        <div class="info">
+            <div class="shoeName">
+                <div>
+                    <h1 class="big">{{item.title}}</h1>
+                    <span class="new">new</span>
+                </div>
+                <!-- <h3 class="small">Men's running shoes</h3> -->
+            </div>
+            <div class="description">
+                <h3 class="title">Product Info</h3>
+                <p class="text">
+                  <h4>Listed by: {{item.created_by}}</h4>
+                  <h4>Date of Listing: {{item.date}}</h4>
+                  <h4>Category: {{item.Categories}}</h4></p>
+            </div>
+            
+            <div>
+              {% if user.is_authenticated %}
+
+                {% if highest_bid %}
+                <h3>Price: ${{highest_bid}}</h3>
+                {% else %}
+                <h3>Price: ${{item.starting_bid}}</h3>
+                {% endif %}
+                <br>
+                {% if item.close_bid %}
+                <h3>Bid Closed</h3>
+                {% if winner  %}
+                <div class="alert alert-danger" role="alert">
+                  <h3>Congratulations! You won the Bid</h3>
+                </div>
+                {% endif %}
+                {% else %}
+                {% if button %}
+                  <a href="{% url 'close_bid' item.id %}"<button type="submit" class="buy">Close Bid </button></a>
+                {% else %}
+                <form name="bid" class="bid" action="{% url 'placebid' item.id %}" method="post">
+                  {% csrf_token %}
+                  <input style=padding:10px ="number" name="bid" placeholder="Place New Bid">
+                  <br>
+                  <br>
+                  <button type="submit"class="buy"> Bid </button>
+                </form>
+                {% endif %}
+                {% endif %}
+                {% endif %}
+            </div>
+
+            <!-- <div class="buy-price">
+                <a href="#" class="buy"><i class="fas fa-shopping-cart"></i>Add to card</a>
+                <div class="price">
+                    <i class="fas fa-dollar-sign"></i>
+                    <h1>189.99</h1>
+                </div>
+            </div> -->
+            <br>
+            <br>
+            <div class="comments">
+              {% if comments %}
+                <h3>Comments:</h3>
+
+                {% for comment in comments %}
+                "{{comment.comment}}"  by {{comment.user}}
+                <br>
+                {% endfor %}
+
+              {% else %}
+              No Comments
+              {% endif %}
+              {% if user.is_authenticated %}
+                <form class="comment" action="{% url 'comment' item.id %}" method="post">
+                  {% csrf_token %}
+                  <input style="padding: 10px;" type="text" name="comment" placeholder="write a comment..">
+                  <br>
+                  <br>
+                  <input class="buy" type="submit"  value="Submit">
+                </form>
+                
+            </div>
+        </div>
+    </div>
 </div>
-{% endif %}
-{% else %}
-{% if button %}
-  <a href="{% url 'close_bid' item.id %}"<button type="submit" class="btn btn-success">Close Bid </button></a>
-{% else %}
-<form name="bid" class="bid" action="{% url 'placebid' item.id %}" method="post">
-  {% csrf_token %}
-  <input type="number" name="bid" placeholder="Place New Bid">
-  <button type="submit" class="btn btn-success"> Bid </button>
-</form>
-{% endif %}
-{% endif %}
-{% endif %}
+<script src="{% static 'main.js' %}" type="text/javascript"></script>
+</body>
+</html>
 
 
 
-<h4>Details:</h4>
-<br>
-<ul>
-  <li><h6>Listed by {{item.created_by}}</h6></li>
-  <li><h6>Date of Listing: {{item.date}}</h6></li>
-  <li><h6>Category: {{item.Categories}}</h6></li>
-</ul>
 
-  {% if comments %}
-  <h3>Comments:</h3>
 
-  {% for comment in comments %}
-  "{{comment.comment}}"  by {{comment.user}}
-   <br>
-  {% endfor %}
 
-{% else %}
-No Comments
-{% endif %}
-{% if user.is_authenticated %}
-  <form class="comment" action="{% url 'comment' item.id %}" method="post">
-    {% csrf_token %}
-    <input type="text" name="comment" placeholder="write a comment..">
-    <input type="submit"  value="Submit">
-  </form>
+
+
+
+
 {% endif %}
 {% endblock %}
