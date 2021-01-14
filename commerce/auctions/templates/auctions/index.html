@@ -30,16 +30,21 @@
                           <button type = "button" class = "btn-cart"> add to cart
                               <span><i class = "fas fa-plus"></i></span>
                           </button>
-                          <button type = "button" class = "btn-buy"> bid now
+                          <a href= "{% url 'item' listing.id %}"> 
+                            <button type = "button" class = "btn-buy"> bid now
                               <span><i class = "fas fa-shopping-cart"></i></span>
-                          </button>
+                            </button>
+                          </a>
+                          <!-- <button <az></a> type = "button" class = "btn-buy"> bid now
+                              <span><i class = "fas fa-shopping-cart"></i></span>
+                          </button> -->
                         </div>
 
                     </div>
 
                     <div class = "product-info">
                       <div class = "product-info-top">
-                          <h2 class = "sm-title">MUSIC</h2>
+                          <h2 class = "sm-title">Category:<strong> {{listing.Categories}}</strong></h2>
                           <div class = "rating">
                               <span><i class = "fas fa-star"></i></span>
                               <span><i class = "fas fa-star"></i></span>
@@ -48,13 +53,17 @@
                               <span><i class = "far fa-star"></i></span>
                           </div>
                       </div>
-                      <a href = "#" class = "product-name">GUITAR</a>
+                      <a href =  "{% url 'item' listing.id %}" class = "product-name">{{listing.title}}</a>
                       <p class = "product-price">$ 150.00</p>
                       <p class = "product-price">STARTING BID $15</p>
                   </div>
 
                   <div class = "off-info">
+                    {% if listing.close_bid %}
+                      <h2 class = "sm-title">CLOSED</h2>
+                    {% else %}
                       <h2 class = "sm-title">ACITVE</h2>
+                    {% endif %}
                   </div>
                 </div>
 
