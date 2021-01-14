@@ -1,63 +1,132 @@
-{% extends "auctions/layout.html" %}
-{% load static %}
-{% block body %}
+{%  load static  %}
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" type="text/css" href="{% static 'indexproduct.css' %}" >
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700&display=swap" rel="stylesheet">
 
-  <main class="l-main">
-    <section class="home" id="home">
-        <div class="home__container bd-grid">
-            <div class="home__sneaker">
-                <div class="home__shape"></div>
-                <img  src="{ % static './imghome.png' % }">
+</head>
+<body>
+  <!-- <div class="products">
+    <div class="container">
+      <h1 class="lg-title">{{message}}:</h1> -->
+
+      
+
+      <!-- <div class="grid-items">
+        <div class="container">
+          <h1 class="lg-title">{{message}}:</h1>
+    
+          <div class="grid-wrapper">
+            {% for listing in all_listings %}
+            <div class="grid-items">
+              <img  src="{{MEDIA_URL}}{{listing.image}}">
+              <a href = "{% url 'item' listing.id %}" class = "product-name">{{listing.title}}</a>
+    
+            </div>
+            {% endfor %}
+          </div>
+
+        </div>
+      </div> -->
+
+      <div class="products">
+        <div class="container">
+          <h1 class="lg-title">{{message}}:</h1>
+
+          <div class="grid-wrapper">
+            {% for listing in all_listings %}
+
+            <div class = "product">
+              <div class = "product-content">
+                  <div class = "product-img">
+                    <img  src="{{MEDIA_URL}}{{listing.image}}">
+                  </div>
+                  <div class = "product-btns">
+                      <button type = "button" class = "btn-cart"> add to cart
+                          <span><i class = "fas fa-plus"></i></span>
+                      </button>
+                      <button type = "button" class = "btn-buy"> bid now
+                          <span><i class = "fas fa-shopping-cart"></i></span>
+                      </button>
+                  </div>
               </div>
 
-            <div class="home__data">
-                <span class="home__new">New Arrivals!!</span>
-                <h1 class="home__title"> SELL OR BUY <br> IT SATISFIES</h1>
-                <p class="home__description"> Explore the new collection of different categories!</p>
-                <a href= "#" class="button">Explore</a>
+              <div class = "product-info">
+                  <div class = "product-info-top">
+                      <h2 class = "sm-title">Category:<strong> {{listing.Categories}}</h2>
+                      <div class = "rating">
+                          <span><i class = "fas fa-star"></i></span>
+                          <span><i class = "fas fa-star"></i></span>
+                          <span><i class = "fas fa-star"></i></span>
+                          <span><i class = "fas fa-star"></i></span>
+                          <span><i class = "far fa-star"></i></span>
+                      </div>
+                  </div>
+                  <a href = "#" class = "product-name">{{listing.title}}</a>
+                  <p class = "product-price">$ 150.00</p>
+                  <p class = "product-price">STARTING BID $15</p>
+              </div>
+
+              <div class = "off-info">
+                  <h2 class = "sm-title">ACITVE</h2>
+              </div>
             </div>
-        </div>
-    </section>
-  </main>
 
-  <section class="featured section" id="featured">
-    <h2 class="section-title">FEATURED</h2>
-    
-        <div class="featured__container bd-grid">
-            {% for category in categories %}
-                <article class="sneaker">
-                    <ul>
-                        <li><a href="{% url 'category_items' category %}">{{category}}</a></li>
-                    </ul>
-                </article>
             {% endfor %}
+          </div>
         </div>
-      
-  </section>
-
-  <main "l-main">
-    <section class="featured section">
-      {% for listing in all_listings %}
-      <div style="display: flexbox;">
-        <img style="width: 250px;" src="{{MEDIA_URL}}{{listing.image}}"  >
-        <a href="{% url 'item' listing.id %}">{{listing.title}}<a/>
-          <span class="sneaker__price"> ${{listing.starting_bid}}</span>
-          {% if listing.close_bid %}
-            <div >Closed</div>
-          {% else %}
-            <div>Active</div>
-          {% endif %}
       </div>
-    </section>
-  </main>
-
   
 
-  {% endfor %}
-  
 
+
+
+</body>
+</html>
+
+
+
+
+
+<div style="padding-top: 100px;">
+
+</div>
+
+    <h2>{{message}}:</h2>
+    {% for listing in all_listings %}
+    <div class="shadow-lg p-3 mb-5 bg-white rounded">
+    <div class="container px-lg-5">
+    <div class="row mx-lg-n5">
+    <div class="col py-3 px-lg-5 border bg-light">
+    Created {{listing.date}}
+    <h5 >Item no: {{listing.id}}</h5>
+    <img  src="{{MEDIA_URL}}{{listing.image}}" style="height:300px;width:300px; padding:auto;" >
+    </div>
+    <div class="col py-3 px-lg-5 border bg-light">
+    <a href="{% url 'item' listing.id %}"><h2 style="text-align:center; text-decoration: underline;">{{listing.title}}</h2><a/>
+    <br>
+    <h4 style="text-align:center">Starting Bid:<strong> ${{listing.starting_bid}}</strong></h4>
+
+   <h4 style="text-align:center">Category:<strong> {{listing.Categories}}</strong></h4>
+
+    <h4  style="text-align:center">Description:<strong>{{listing.description}}</strong></h4>
+
+    {% if listing.close_bid %}
+    <h4  style="text-align:center">Status: <p style="color:red">Closed </p></h4>
+    {% else %}
+    <h4  style="text-align:center">Status: <p style="color:green">Active </p></h4>
+    {% endif %}
+    </div>
+    </div>
+  </div>
+  </div>
     
 
-{% endblock %}
+    {% endfor %}

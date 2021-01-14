@@ -21,6 +21,8 @@
   --small-font-size: .813rem;
 }
 
+body { padding-top: 70px; }
+
 @media screen and (min-width: 768px){
   :root{
     --normal-font-size: 1rem;
@@ -247,4 +249,9 @@ img{
   .login__create{
     bottom: -5.5rem;
   }
+  .pad{
+    z-index: -1;
+    position: fixed;
+  }
 }
+
