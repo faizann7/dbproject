@@ -170,7 +170,9 @@ img{
     letter-spacing: 3px;
     cursor: pointer;
 }
-
+body{
+    padding: 56px
+}
 /* Media Queries */
 @media screen and (min-width: 768px){
     .grid-wrapper {
