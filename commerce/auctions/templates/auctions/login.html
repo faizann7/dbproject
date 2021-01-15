@@ -15,13 +15,15 @@
         <div class="forms-container">
           <div class="signin-signup">
 
-           
+            {% if message %}
+              <p>{{message}}</p>
+            {% endif %}
             <form action="{% url 'login' %}" method="post" class="sign-in-form">
+              {% csrf_token %}
+
                 <h2 class="title">Log in</h2>
                 
-                {% if message %}
-                    <p>{{message}}</p>
-                {% endif %}
+                
 
                 <div class="input-field">
                     <i class="fas fa-user"></i>
